@@ -43,6 +43,11 @@ jobs:
           npx expo install expo-store-review -- --legacy-peer-deps
           npx expo install --check || npx expo install --fix -- --legacy-peer-deps
 
+      - name: Expo doctor (совместимость нативных пакетов)
+        run: |
+          set -o pipefail
+          npx expo-doctor 2>&1 | tee doctor.txt || { echo '### expo-doctor' >> $GITHUB_STEP_SUMMARY; echo '```' >> $GITHUB_STEP_SUMMARY; head -60 doctor.txt >> $GITHUB_STEP_SUMMARY; echo '```' >> $GITHUB_STEP_SUMMARY; }
+
       - name: Type check
         run: |
           set -o pipefail
