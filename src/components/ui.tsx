@@ -57,7 +57,7 @@ export function Button({
   style,
 }: {
   title: string;
-  onPress?: () => void | Promise<void>;
+  onPress?: () => unknown;
   kind?: BtnKind;
   disabled?: boolean;
   loading?: boolean;

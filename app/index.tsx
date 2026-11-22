@@ -46,7 +46,7 @@ export default function Home() {
   useEffect(() => {
     if (lastLang.current === i.lang || !items) return;
     lastLang.current = i.lang;
-    syncDemoLang(i.lang, items.map((k) => k.id)).then((changed) => changed && load());
+    syncDemoLang(i.lang, items.map((k) => k.id)).then((changed) => { if (changed) load(); });
   }, [i.lang, items, load]);
 
   useFocusEffect(
