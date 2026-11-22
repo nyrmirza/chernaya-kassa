@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "9PQF683C2B.kz.nurbakyt.chernayakassa"
+        ],
+        "components": [
+          {
+            "/": "/j/*",
+            "comment": "Приглашение в кассу по коду"
+          },
+          {
+            "/": "/p/*",
+            "comment": "Личная ссылка для супруга"
+          }
+        ]
+      }
+    ]
+  }
+}

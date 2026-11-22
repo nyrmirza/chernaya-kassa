@@ -1,0 +1,43 @@
+{
+  "hosting": {
+    "target": "kassa",
+    "public": "web",
+    "ignore": [
+      "firebase.json",
+      "_redirects",
+      "_headers",
+      "aasa.json"
+    ],
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "/j/**",
+        "destination": "/j.html"
+      },
+      {
+        "source": "/p/**",
+        "destination": "/j.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/.well-known/apple-app-site-association",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      },
+      {
+        "source": "/.well-known/assetlinks.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ]
+      }
+    ]
+  }
+}

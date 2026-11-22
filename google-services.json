@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "870237990705",
+    "project_id": "secret-santa-1c7e3",
+    "storage_bucket": "secret-santa-1c7e3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870237990705:android:85890f20cfffce7a648a10",
+        "android_client_info": {
+          "package_name": "kz.nurbakyt.chernayakassa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO9X7Ne_bXzDzO154Pulp6E3RUhanceXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870237990705:android:c7fe67181834ffe5648a10",
+        "android_client_info": {
+          "package_name": "kz.nurbakyt.secretsanta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO9X7Ne_bXzDzO154Pulp6E3RUhanceXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

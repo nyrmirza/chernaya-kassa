@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Черная касса — приглашение</title>
+<meta property="og:title" content="Приглашение в кассу">
+<meta property="og:description" content="Очередь по месяцам, даты встреч и кто сколько сдал — в приложении «Черная касса».">
+<meta name="theme-color" content="#141413">
+<style>
+  /* Когда приложение установлено, iOS открывает его сам и эту страницу не показывает. */
+  :root { --bg:#141413; --surface:#1d1c1a; --line:#2e2c28; --fg:#efe9dd; --muted:#9b9486; --accent:#d9a441; --ink:#1b1408; color-scheme:dark; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; background:var(--bg); color:var(--fg); font:16px/1.45 -apple-system, "SF Pro Text", system-ui, sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    padding:max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+  main { width:100%; max-width:420px; display:flex; flex-direction:column; gap:18px; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:14px; }
+  .coin { width:34px; height:34px; border-radius:50%; border:4px solid var(--accent); display:grid; place-items:center; color:var(--accent); font-weight:800; font-size:15px; }
+  h1 { margin:0; font-size:28px; line-height:1.15; text-wrap:balance; }
+  p { margin:0; color:var(--muted); }
+  .code { font:600 34px/1 ui-monospace, Menlo, monospace; letter-spacing:.2em; text-align:center; color:var(--accent);
+    border:1px dashed var(--accent); border-radius:12px; padding:16px 8px; user-select:all; }
+  .label { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  a.btn, button.btn { display:block; width:100%; text-align:center; text-decoration:none; font:700 16px/1 inherit; font-family:inherit;
+    padding:16px; border-radius:12px; border:1px solid var(--line); background:none; color:var(--fg); cursor:pointer; }
+  .primary { background:var(--accent) !important; color:var(--ink) !important; border-color:var(--accent) !important; }
+  .hint { font-size:13px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><span class="coin">₸</span><span data-t="app">Черная касса</span></div>
+  <h1 data-t="title">Вас пригласили в кассу</h1>
+  <div>
+    <div class="label" data-t="codeLabel">Код кассы</div>
+    <div class="code" id="code">——————</div>
+  </div>
+  <a class="btn primary" id="store" href="#" data-t="store">Скачать в App Store</a>
+  <a class="btn" id="open" href="#" data-t="open">У меня уже есть приложение</a>
+  <button class="btn" id="copy" type="button" data-t="copy">Скопировать код</button>
+  <p class="hint" data-t="hint">После установки вернитесь в WhatsApp и нажмите на ссылку ещё раз — касса откроется сама. Или введите код вручную.</p>
+  <p class="hint" id="soon" hidden data-t="soon">Приложение скоро появится в App Store. Сохраните код — он понадобится для входа.</p>
+</main>
+<script>
+  // Ссылка на приложение в App Store. Пока пусто — страница показывает «скоро в App Store».
+  var APP_STORE_URL = 'https://apps.apple.com/app/id6827977401';
+  // Ссылка на Google Play. Пока пусто — «скоро».
+  var PLAY_URL = 'https://play.google.com/store/apps/details?id=kz.nurbakyt.chernayakassa';
+  var ANDROID = /Android/i.test(navigator.userAgent);
+  var SCHEME = 'chernayakassa://join/';
+
+  var T = {
+    kk: { app:'Қара касса', title:'Сізді кассаға шақырды', codeLabel:'Касса коды', store:'App Store-дан жүктеу', open:'Қосымшам бар', copy:'Кодты көшіру', copied:'Көшірілді',
+      hint:'Орнатқаннан кейін WhatsApp-қа оралып, сілтемені тағы бір рет басыңыз — касса өзі ашылады. Немесе кодты қолмен енгізіңіз.',
+      soon:'Қосымша жақында App Store-да шығады. Кодты сақтаңыз — кіру үшін керек болады.' },
+    en: { app:'Black Kassa', title:'You’re invited to a kassa', codeLabel:'Kassa code', store:'Get it on the App Store', open:'I already have the app', copy:'Copy the code', copied:'Copied',
+      hint:'After installing, go back to WhatsApp and tap the link again — the kassa opens by itself. Or enter the code by hand.',
+      soon:'The app is coming to the App Store soon. Keep the code — you’ll need it to join.' }
+  };
+  var lang = (navigator.language || 'ru').slice(0, 2);
+  if (T[lang]) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function (el) { var v = T[lang][el.getAttribute('data-t')]; if (v) el.textContent = v; });
+  }
+
+  // /j/КОД — приглашение в кассу, /p/КОД — личная ссылка для супруга.
+  var partner = location.pathname.indexOf('/p/') !== -1;
+  var raw = location.pathname.split(partner ? '/p/' : '/j/')[1] || '';
+  var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, partner ? 8 : 6);
+  document.getElementById('code').textContent = code || '——————';
+  document.getElementById('open').href = (partner ? 'chernayakassa://p/' : SCHEME) + code;
+  if (partner) {
+    var P = { ru: ['Вас пригласили в пару', 'Личный код'], kk: ['Сізді жұпқа шақырды', 'Жеке код'], en: ['You’re invited as a couple', 'Personal code'] };
+    var pl = P[lang] || P.ru;
+    document.querySelector('[data-t="title"]').textContent = pl[0];
+    document.querySelector('[data-t="codeLabel"]').textContent = pl[1];
+  }
+
+  var store = document.getElementById('store');
+  if (ANDROID) {
+    var PS = { ru: 'Скачать в Google Play', kk: 'Google Play-ден жүктеу', en: 'Get it on Google Play' };
+    store.textContent = PS[lang] || PS.ru;
+    var S = { ru: 'Приложение скоро появится в Google Play. Сохраните код — он понадобится для входа.',
+      kk: 'Қосымша жақында Google Play-де шығады. Кодты сақтаңыз — кіру үшін керек болады.',
+      en: 'The app is coming to Google Play soon. Keep the code — you’ll need it to join.' };
+    document.getElementById('soon').textContent = S[lang] || S.ru;
+    APP_STORE_URL = PLAY_URL;
+  }
+  if (APP_STORE_URL) {
+    store.href = APP_STORE_URL;
+    // Приложения нет (иначе iOS открыл бы его вместо страницы) — ведём в App Store.
+    if (ANDROID || /iPhone|iPad|iPod/.test(navigator.userAgent)) setTimeout(function () { location.href = APP_STORE_URL; }, 1500);
+  } else {
+    store.hidden = true;
+    document.getElementById('soon').hidden = false;
+  }
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var b = this, label = b.textContent, done = function () { b.textContent = (T[lang] || {}).copied || 'Скопировано'; setTimeout(function () { b.textContent = label; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, function () {});
+  });
+</script>
+</body>
+</html>

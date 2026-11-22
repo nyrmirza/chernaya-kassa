@@ -1,0 +1,15 @@
+node_modules/
+.expo/
+.firebase/
+dist/
+ios/
+android/
+*.log
+.env*.local
+*.p8
+*.keystore
+*.jks
+keys/
+supabase/
+tools/
+web/

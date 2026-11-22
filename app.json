@@ -1,0 +1,109 @@
+{
+  "expo": {
+    "name": "Черная касса",
+    "slug": "chernaya-kassa",
+    "scheme": "chernayakassa",
+    "version": "1.0.2",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#141413",
+    "icon": "./assets/icon.png",
+    "ios": {
+      "bundleIdentifier": "kz.nurbakyt.chernayakassa",
+      "supportsTablet": false,
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleAllowMixedLocalizations": true,
+        "CFBundleLocalizations": [
+          "ru",
+          "kk",
+          "en"
+        ],
+        "CFBundleDevelopmentRegion": "ru",
+        "LSApplicationQueriesSchemes": [
+          "whatsapp"
+        ]
+      },
+      "associatedDomains": [
+        "applinks:chernaya-kassa-kz.web.app"
+      ],
+      "usesAppleSignIn": true,
+      "entitlements": {
+        "com.apple.developer.applesignin": [
+          "Default"
+        ]
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      "expo-font",
+      "@react-native-community/datetimepicker",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#141413"
+        }
+      ],
+      "expo-status-bar",
+      "expo-web-browser",
+      "expo-notifications",
+      "./plugins/withPortraitOptional"
+    ],
+    "experiments": {
+      "typedRoutes": false
+    },
+    "extra": {
+      "supabaseUrl": "https://pintazpikeeuwfofdrlt.supabase.co",
+      "supabaseKey": "sb_publishable_m8jCF1qypHToFw6Z2TzcqA_C8eSmaUs",
+      "linkHost": "chernaya-kassa-kz.web.app",
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "9bed0070-24ab-4116-b008-8bf388c53d0b"
+      }
+    },
+    "android": {
+      "package": "kz.nurbakyt.chernayakassa",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#141413"
+      },
+      "permissions": [
+        "POST_NOTIFICATIONS"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "chernaya-kassa-kz.web.app",
+              "pathPrefix": "/j/"
+            },
+            {
+              "scheme": "https",
+              "host": "chernaya-kassa-kz.web.app",
+              "pathPrefix": "/p/"
+            }
+          ],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ],
+      "googleServicesFile": "./google-services.json"
+    },
+    "owner": "nurbakytuly"
+  }
+}

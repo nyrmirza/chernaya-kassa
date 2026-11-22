@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "kz.nurbakyt.chernayakassa",
+      "sha256_cert_fingerprints": [
+        "2A:1D:27:92:43:87:A9:80:87:9D:C7:A3:37:1C:13:13:5E:7A:C3:12:6E:98:0E:00:64:92:31:7F:00:D5:4D:ED",
+        "54:29:88:70:A7:2F:0F:90:D0:CA:75:03:7A:34:97:B2:BF:1D:2F:6B:19:6B:5C:6D:2F:AB:80:3B:97:43:F8:7E"
+      ]
+    }
+  }
+]
